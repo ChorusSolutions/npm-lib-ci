@@ -1,0 +1,32 @@
+{
+    "name": "@chorus/demo-app",
+    "version": "0.1.0",
+    "private": false,
+    "dependencies": {
+        "react": "^16.4.2",
+        "react-dom": "^16.4.2",
+        "react-scripts-ts": "2.17.0"
+    },
+    "scripts": {
+        "start": "react-scripts-ts start",
+        "build": "react-scripts-ts build",
+        "test": "react-scripts-ts test --env=jsdom",
+        "eject": "react-scripts-ts eject",
+        "build-lib": "tsc --sourceMap false && npm run copy-lib-css",
+        "copy-lib-css": "cpx \"./src/lib/**/*.css\" ./build/lib/lib"
+    },
+    "devDependencies": {
+        "@chorus/react-library-demo": "^0.1.1",
+        "@types/jest": "^23.3.1",
+        "@types/node": "^10.9.4",
+        "@types/react": "^16.4.13",
+        "@types/react-dom": "^16.0.7",
+        "cpx": "^1.5.0",
+        "typescript": "^3.0.3"
+    },
+    "main": "build/lib/lib/index.js",
+    "types": "build/lib/lib/index.d.ts",
+    "files": [
+        "build/lib/lib"
+    ]
+}
