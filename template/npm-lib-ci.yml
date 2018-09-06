@@ -1,0 +1,38 @@
+parameters:
+  packageJsonFolderPath: ''
+  artifactName: 'Package'
+  filesToIncludeInDrop: |
+      build\lib\lib\**
+      package.json
+      README.md
+
+steps:
+
+  - script: |
+      echo ##vso[task.setvariable variable=PackageLocation]$(build.artifactstagingdirectory)/package
+
+  - task: Npm@1
+    displayName: 'npm install'
+    inputs:
+      workingDir: ${{ parameters.packageJsonFolderPath }}
+      verbose: false
+
+  - task: Npm@1
+    displayName: 'npm build-lib'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'run build-lib'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(PackageLocation)'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: ${{ parameters.filesToIncludeInDrop }}
+      TargetFolder: '$(PackageLocation)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: Package'
+    inputs:
+      PathtoPublish: '$(PackageLocation)'
+      ArtifactName: ${{ parameters.artifactName }}

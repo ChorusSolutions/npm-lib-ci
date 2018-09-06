@@ -1,0 +1,9 @@
+queue: Hosted VS2017
+
+steps:
+
+  - template: template/npm-lib-ci.yml
+    parameters:
+      packageJsonFolderPath: 'demo'
+
+  - script: echo hello world
